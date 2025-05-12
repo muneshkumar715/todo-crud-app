@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  ci-web:
+    image: muneshkumar/todo-crud-app:latest
+    ports:
+      - "6000:5000"
+    depends_on:
+      - ci-mysql
+    environment:
+      - MYSQL_HOST=ci-mysql
+  ci-mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=todo_db
+    volumes:
+      - ci-mysql-data:/var/lib/mysql
+volumes:
+  ci-mysql-data:
